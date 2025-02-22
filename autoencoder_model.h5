@@ -1,0 +1,15 @@
+import os
+
+@st.cache_resource
+def load_autoencoder():
+    model_path = "autoencoder_model.h5"
+    if not os.path.exists(model_path):
+        st.error(f"❌ Model file '{model_path}' not found. Please upload it.")
+        return None
+    model = tf.keras.models.load_model(model_path)
+    return model
+
+autoencoder = load_autoencoder()
+
+if autoencoder is None:
+    st.stop()  # Stop execution if the model is missing
